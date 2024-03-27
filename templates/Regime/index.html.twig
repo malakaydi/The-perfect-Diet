@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5 mb-4"> 
+    <div class="row justify-content-center" >
+        <div class="col-md-6">
+            {{ form_start(form) }}
+            <div class="input-group mb-3">
+                {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Search by Diet Name'}}) }}
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                        Research
+                    </button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    <div class="container regime-table mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-uppercase">Liste des Régimes</h2>
+            <a href="{{ path('new_regime') }}" class="btn btn-primary btn-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+</svg>
+            
+            Créer un Nouveau Régime</a>
+        </div>
+
+        {% for msg in app.flashes('notice') %}
+            <div class="container mt-3">
+                <div class="alert alert-success text-center">
+                    {{ msg }}
+                </div>
+            </div>
+        {% endfor %}
+
+        {% if regimes %}
+            <table id="regimes" class="table table-striped">
+                <thead class="thead-stripped">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom du Régime</th>
+                        <th>Durée</th>
+                        <th>Type</th>
+                        <th>Plat Associé</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for regime in regimes %}
+                        <tr>
+                            <td>{{ regime.id }}</td>
+                            <td>{{ regime.nomregime }}</td>
+                            <td>{{ regime.duree }}</td>
+                            <td>{{ regime.type }}</td>
+                            <td>
+                                {% for plat in regime.plats %}
+                                    {{ plat.nomplat }}
+                                    {% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{{ path('regime_show', {'id': regime.id}) }}" class="btn btn-outline-info">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+</svg>
+                                
+                                Détails</a>
+                                <a href="{{ path('edit_regime', {'id': regime.id}) }}" class="btn btn-outline-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+</svg>
+                                Modifier</a>
+                                <a href="{{ path('delete_regime', {'id': regime.id}) }}" class="btn btn-outline-danger" 
+   onclick="return confirm('Êtes-vous sûr de supprimer {{ regime.nomregime }}?');">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+    </svg>
+    Supprimer
+</a>
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+
+
+
+
+
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-center mt-4">Aucun Régime disponible.</p>
+        {% endif %}
+    </div>
+
+    <style>
+        body {
+            background-color: #D2E0FB; /* Light pastel blue */
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            margin-top: 100px;
+        }
+
+        .regime-table {
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #7C93C3; /* Pastel blue */
+        }
+
+        .btn {
+            border-radius: 3px;
+        }
+
+     .form-inline .form-control {
+        width: 100%;
+    }
+
+    .form-inline button {
+        margin-top: 10px;
+    }
+
+    .container {
+        margin-top: 10px; /* Adjust this value as needed */
+    }
+
+    
+    </style>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center" style="margin-top: 100px;">
+        <div class="col-md-6">
+            <h1 class="text-center mb-4">Inscription</h1>
+
+            {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+            
+            <div class="mb-3">
+                {{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Adresse email...', 'required': 'required'}}) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_row(form.username, {'label': 'Nom d utilisateur', 'attr': {'class': 'form-control', 'placeholder': 'Nom d utilisateur...', 'required': 'required'}}) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_row(form.password, {'label': 'Mot de passe', 'attr': {'class': 'form-control', 'placeholder': 'Mot de passe...', 'required': 'required'}}) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_row(form.confirm_password, {'label': 'Répétez votre mot de passe', 'attr': {'class': 'form-control', 'placeholder': 'Répetez votre mot de passe...', 'required': 'required'}}) }}
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">Inscription</button>
+                
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

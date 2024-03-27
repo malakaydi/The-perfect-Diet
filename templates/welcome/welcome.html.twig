@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container regime-table" style="margin-top: 80px;">
+        <div class="container text-center">
+            <h1 class="display-4 text-primary">Welcome to Perfect Diet!</h1>
+            <p class="lead">Start your journey to a healthier lifestyle with Perfect Diet.</p>
+            
+            <div class="image-container">
+                <img src="{{ asset('image/diet.jpg') }}" alt="Welcome Image" class="img-fluid mt-4" style="max-width:50%; border-radius: 10px;">
+                
+            </div>
+        <a href="{{ path('app_security') }}" class="btn btn-primary btn-lg btn-block">Inscription</a>
+
+        
+            <div class="quote-container mt-4">
+                <p class="lead text-muted">{{ quotes }}</p>
+
+            </div>
+        </div>
+    </div>
+
+    <style>
+        body {
+            background-color: #F8F9FA; /* Light grayish blue */
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .regime-table {
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007BFF; /* Primary blue color */
+        }
+
+        .lead {
+            font-size: 1.25rem;
+            margin-top: 10px;
+        }
+
+        .img-fluid {
+            border-radius: 10px;
+        }
+        
+
+        .quote-container {
+            background-color: #f3f3f3;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .text-muted {
+            font-style: italic;
+        }
+    </style>
+{% endblock %}

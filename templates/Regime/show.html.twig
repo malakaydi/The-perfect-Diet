@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ regime.nomregime }}{% endblock %}
+
+{% block body %}
+    <div class="container regime-table" style="margin-top: 100px;">
+        <h1 class="mb-4" style="color: #333; font-size: 28px;">Détails du Régime</h1>
+
+        <div class="regime-details">
+            <p><span class="label">Nom du Régime:</span> {{ regime.nomregime }}</p>
+            <p><span class="label">Durée:</span> {{ regime.duree }}</p>
+            <p><span class="label">Type:</span> {{ regime.type }}</p>
+            
+            {# Add the associated "nomplat" field here #}
+            <td>
+    <p><span class="label">Plat Associé:</span>
+    {% for plat in regime.plats %}
+        {{ plat.nomplat }}
+        {% if not loop.last %}, {% endif %}
+    {% endfor %}
+    </p>
+</td>
+
+
+        </div>
+
+        <hr>
+
+        <a href="{{ path('home') }}" class="btn btn-secondary">Retour à la liste</a>
+    </div>
+
+    <style>
+        .regime-details {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+            border: 1px solid #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border: 1px solid #5a6268;
+        }
+    </style>
+{% endblock %}

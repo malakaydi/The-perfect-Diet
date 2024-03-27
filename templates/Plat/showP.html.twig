@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ plat.nomplat }}{% endblock %}
+
+{% block body %}
+    <div class="container regime-table" style="margin-top: 100px; display: flex; flex-direction: column; align-items: center;">
+        <h1 class="mb-4" style="color: #333; font-size: 28px;">Détails du Plat</h1>
+
+        <div class="plat-details" style="width: 100%; max-width: 400px;">
+            {% if plat.image %}
+                <img src="{{ plat.image.url }}" alt="{{ plat.nomplat }} Image" class="img-fluid rounded">
+            {% endif %}
+            
+            <div class="details mt-3">
+                <p><span class="label">Nom du Plat:</span> {{ plat.nomplat }}</p>
+                <p><span class="label">Coût:</span> {{ plat.cout }}</p>
+                <p><span class="label">Nombre de Calories:</span> {{ plat.nbreCalories }}</p>
+                <p><span class="label">Ingrédients:</span> {{ plat.ingredients }}</p>
+
+                {# Add the associated "Regime" field here #}
+                {% if plat.regime is not null %}
+                    <p><span class="label">Régime Associé:</span> {{ plat.regime.nomregime }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr>
+
+        <a href="{{ path('home2') }}" class="btn btn-secondary">Retour à la liste</a>
+    </div>
+
+    <style>
+        .plat-details {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden; /* Clear float containment */
+            text-align: center; /* Center the content */
+        }
+
+        .label {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+            border: 1px solid #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border: 1px solid #5a6268;
+        }
+
+        /* Custom styles for image alignment */
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .details {
+            /* Add any additional styling for the details */
+        }
+    </style>
+{% endblock %}

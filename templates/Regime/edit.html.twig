@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container regime-table" style="margin-top: 100px;">
+        <h1 class="mb-4">Modifier un Régime</h1>
+
+        {{ form_start(form) }}
+        
+        <div class="form-group">
+            {{ form_label(form.nomregime, 'Nom du Régime', {'label_attr': {'class': 'font-weight-bold'}}) }}
+            {{ form_widget(form.nomregime, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.duree, 'Durée', {'label_attr': {'class': 'font-weight-bold'}}) }}
+            {{ form_widget(form.duree, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.type, 'Type', {'label_attr': {'class': 'font-weight-bold'}}) }}
+            {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        {{ form_end(form) }}
+
+        <div class="form-group mt-3">
+            <a href="{{ path('home') }}" class="btn btn-secondary">Retour à la liste</a>
+        </div>
+    </div>
+{% endblock %}
